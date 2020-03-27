@@ -6,17 +6,16 @@
 #     Checking for x higher than sqrt(number), is like checking;
 #         is number / y == int(x) what is same as number / x == int(y)
 
-# Without any lib.
 def is_number_perfect(number):
     sum = 1
     i = 2 
 
-    while i * i < number:  # Equal to i < sqrt(number) but without any lib  
+    while i * i < number:  # Equal to i < sqrt(number) but without any lib. 
         if number % i == 0:
             sum += i + number // i
         i += 1
 
-    # If sqrt of number is int, then add sqrt of number to sum only once
+    # If sqrt of number is int, then add sqrt of number to sum only once.
     if i * i == number:
         sum += number
     return sum == number
