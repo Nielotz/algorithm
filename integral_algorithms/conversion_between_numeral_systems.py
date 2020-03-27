@@ -47,7 +47,7 @@ def compress_number_to_string_number(array_of_number):
 
 def change_number_to_another_system(number_in_decimal: int, target_base: int):
     new_number_digits = []
-    while number_in_decimal > target_base:
+    while number_in_decimal >= target_base:
         new_number_digits.append(number_in_decimal % target_base)
         number_in_decimal //= target_base 
     new_number_digits.append(number_in_decimal)
