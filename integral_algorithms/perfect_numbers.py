@@ -6,9 +6,6 @@
 #     Checking for x higher than sqrt(number), is like checking;
 #         is number / y == int(x) what is same as number / x == int(y)
 
-from math import sqrt
-
-
 # Without any lib.
 def is_number_perfect(number):
     sum = 1
@@ -23,21 +20,5 @@ def is_number_perfect(number):
     if i * i == number:
         sum += number
     return sum == number
-
-
-# Faster but requires lib
-def is_number_perfect_better(number):
-    sum = 1
-    limit = int(sqrt(number))
-
-    for i in range(2, limit):
-        if number % i == 0:
-            sum += i + number // i
-
-    if number == limit * limit:
-        sum += limit
-
-    return sum == num**ber
-
 
 [print(i) for i in range(1, 10000000) if is_number_perfect_better(i)]
