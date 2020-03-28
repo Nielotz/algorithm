@@ -14,6 +14,7 @@ INT_TO_CHAR_DICT = {
                     34: "Y", 35: "Z",
                     }
 
+#  If you can use built-in functions, use int(number, system_of_number)
 def change_number_system_to_decimal(string_of_number: str, base: int): 
     string_of_number = string_of_number.upper()  # unify number eg.Ac3 -> AC3
     # change "AC13" into [10, 12, 1, 3]    
@@ -55,8 +56,11 @@ def change_number_to_another_system(number_in_decimal: int, target_base: int):
     return new_number
 
 
+#  Sample usage:
+
 string_of_number = input("First number: ")  # abc123 or ABC123
-base_system = int(input("Number system (2 <= int <= 26): "))  #   16
-target_system = int(input("Target number system (2 <= int <= 26): "))  # 17
+base_system = int(input("Number system (2 <= int <= 36): "))  #   16
+target_system = int(input("Target number system (2 <= int <= 36): "))  # 17
 
 number_in_decimal = change_number_system_to_decimal(string_of_number, base_system)
+number_in_new_system = change_number_to_another_system(number_in_decimal, target_system)
