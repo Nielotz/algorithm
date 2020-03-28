@@ -19,5 +19,3 @@ def is_number_perfect(number):
     if i * i == number:
         sum += number
     return sum == number
-
-[print(i) for i in range(1, 10000000) if is_number_perfect_better(i)]

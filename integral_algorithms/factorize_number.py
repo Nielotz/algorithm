@@ -4,7 +4,7 @@ def factorize(number):
 
     factors = []
     i = 2
-    while number >= i * i:  # Same as sqrt(number) >= i but no need for lib.
+    while i * i <= number :  # Same as sqrt(number) >= i but no need for lib.
         if number % i == 0:
             factors.append(i)
             number //= i
@@ -15,8 +15,3 @@ def factorize(number):
         factors.append(number)
 
     return factors
-
-
-
-[print(i, factorize_faster_faster(i)) for i in range(1, 100)]
-

@@ -60,5 +60,3 @@ base_system = int(input("Number system (2 <= int <= 26): "))  #   16
 target_system = int(input("Target number system (2 <= int <= 26): "))  # 17
 
 number_in_decimal = change_number_system_to_decimal(string_of_number, base_system)
-
-print(change_number_to_another_system(number_in_decimal, target_system))

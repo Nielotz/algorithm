@@ -17,6 +17,3 @@ def check_is_prime(number):
 		i += 4
 	return True
 
-
-[print(i) for i in range(1, 1000000) if check_is_prime(i)]
-
