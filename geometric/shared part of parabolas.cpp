@@ -3,8 +3,6 @@
 
 using namespace std;
 
-//  Change n_of_trapezes to higher value to increase precission
-
 struct Roots {
     const double FIRST = 0;
     const double SECOND = 0;
@@ -19,12 +17,12 @@ struct Roots {
     }
 };
 
-struct QuadraticFunction
+class QuadraticFunction
 {
     const int32_t A;
     const int32_t B;
     const int32_t C;
-
+public:
     QuadraticFunction(const int32_t A, const int32_t B, const int32_t C) :
         A(A), B(B), C(C) {}
 
@@ -60,7 +58,7 @@ struct QuadraticFunction
         const Roots COMMONS = this->get_x_of_common_points_with(f);
         if (!COMMONS.VALID)
             return 0;
-
+        
         const double STEP = abs(COMMONS.FIRST - COMMONS.SECOND) / n_of_trapezes;
 
         double x = COMMONS.FIRST + STEP * n_of_trapezes;
