@@ -3,59 +3,86 @@
 
 using namespace std;
 
+//  Change n_of_trapezes to higher value to increase precission
+
+struct Roots {
+    const double FIRST = 0;
+    const double SECOND = 0;
+    const bool VALID = false;
+
+    Roots(const double FIRST, const double SECOND, const bool VALID)
+        :FIRST(FIRST), SECOND(SECOND), VALID(VALID)
+    {}
+
+    Roots() {
+        // valid = false;
+    }
+};
+
 struct QuadraticFunction
 {
-    int32_t a, b, c;
-    QuadraticFunction(int32_t a, int32_t b, int32_t c):
-    a(a), b(b), c(c) {}
+    const int32_t A;
+    const int32_t B;
+    const int32_t C;
 
-    double calculate(double x) {
-        return x * x * this->a + x * this->b + this->c;
+    QuadraticFunction(const int32_t A, const int32_t B, const int32_t C) :
+        A(A), B(B), C(C) {}
+
+    double calculate(const double& X) {
+        return X * X * this->A + X * this->B + this->C;
     }
 
-    pair<pair<double, double>, bool> get_x_of_common_points_with(QuadraticFunction f) {
-        int32_t a = this->a - f.a;
-        int32_t b = this->b - f.b;
-        int32_t c = this->c - f.c;
+    Roots get_x_of_common_points_with(QuadraticFunction& f) {
+        const int32_t A = this->A - f.A;
+        const int32_t B = this->B - f.B;
+        const int32_t C = this->C - f.C;
 
-        int32_t delta = b * b - 4 * a * c;
-        if (!(delta > 0))
-            return pair<pair<double, double>, bool>(pair<double, double>(0, 0), false);
+        const int32_t DELTA = B * B - 4 * A * C;
+        if (!(DELTA > 0))
+            return Roots(0, 0, false);
 
-        double sqrt_of_delta = sqrt(delta);
-        double root1 = (-b - sqrt_of_delta) / (int64_t(2) * a);
-        double root2 = (-b + sqrt_of_delta) / (int64_t(2) * a);
+        const double SQRT_OF_DELTA = sqrt(DELTA);
+        const int64_t TWO_A = int64_t(A) * 2;
+        const double ROOT1 = (-B - SQRT_OF_DELTA) / TWO_A;
+        const double ROOT2 = (-B + SQRT_OF_DELTA) / TWO_A;
 
-        if (root1 < root2)
-            return pair<pair<double, double>, bool>(pair<double, double>(root1, root2), true);
-        return pair<pair<double, double>, bool>(pair<double, double>(root2, root1), true);
+        if (ROOT1 < ROOT2)
+            return Roots(ROOT1, ROOT2, true);
+        return Roots(ROOT2, ROOT1, true);
     }
 
-    double calculate_intersection_with(QuadraticFunction f) {
+    double calculate_intersection_with(QuadraticFunction& f) {
         double field = 0;
-        uint64_t n_of_trapezes = 3000;  // Can't euqal 0 !
 
-        pair<pair<double, double>, bool> commons = this->get_x_of_common_points_with(f);
-        if (!commons.second)
+        // Can't euqal 0 !
+        uint64_t n_of_trapezes = 3000;
+
+        const Roots COMMONS = this->get_x_of_common_points_with(f);
+        if (!COMMONS.VALID)
             return 0;
-        pair<double, double> common = commons.first;
 
-        double step = abs(common.first - common.second) / n_of_trapezes;
-        double x = common.first + step * n_of_trapezes;
+        const double STEP = abs(COMMONS.FIRST - COMMONS.SECOND) / n_of_trapezes;
+
+        double x = COMMONS.FIRST + STEP * n_of_trapezes;
+
         double y1 = this->calculate(x);
         double y2 = f.calculate(x);
+
         double a = abs(y1 - y2);
         double b;
+
+        const double TRAPEZE_HEIGHT_DIVIDED_BY_TWO = STEP / 2;
+
         while (n_of_trapezes--) {
             b = a;
-            x -= step;
+            x -= STEP;
 
             y1 = this->calculate(x);
             y2 = f.calculate(x);
 
             a = abs(y1 - y2);
 
-            field += (a + b) / 2 * step; //  step never equal 0
+            field += (a + b) * TRAPEZE_HEIGHT_DIVIDED_BY_TWO; //  step never equal 0
         }
         return field;
     }
@@ -79,7 +106,7 @@ int main()
         printf("%.2f\n", float(uint64_t(round(result * 100)) / 100.0));
     }
 
-    
+
 
 
 }
